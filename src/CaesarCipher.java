@@ -1,7 +1,7 @@
 
 public class CaesarCipher extends Cipher {
 	private final static int NUM_LETTERS = 26;
-	private final int shiftAmount;
+	private int shiftAmount;//changed from final b/c wouldn't initiate properly.
 
 	/**
 	 * @param amt - the distance to shift letters when encrypting
@@ -11,10 +11,14 @@ public class CaesarCipher extends Cipher {
 	}
 
 	public CaesarCipher(CaesarCipher other){
-		// TODO: complete this copy constructor
+		this.shiftAmount = other.getShiftAmount();
 	}
 
-	@Override
+	public int getShiftAmount() {
+		return shiftAmount;
+	}
+
+
 	public char encrypt(char c) {
 		if(Character.isAlphabetic(c)){
 			final char base = (Character.isLowerCase(c) ? 'a' : 'A');
@@ -26,7 +30,7 @@ public class CaesarCipher extends Cipher {
 		}
 	}
 
-	@Override
+
 	public char decrypt(char c) {
 		if(Character.isAlphabetic(c)){
 			final char base = (Character.isLowerCase(c) ? 'a' : 'A');
@@ -36,16 +40,13 @@ public class CaesarCipher extends Cipher {
 			return c;
 		}
 	}
-//TODO: Fill out method
-    @Override
-    public Cipher newCopy(Cipher c) {
-        return null;
-    }
+
 
     // Returns a new object, a deep copy of the current object
-	@Override
+
 	public Cipher newCopy() {
-		return new CaesarCipher(this);
+		CaesarCipher giveBack = new CaesarCipher(this.shiftAmount);
+		return giveBack;
 	}
 
 }

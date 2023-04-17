@@ -1,83 +1,83 @@
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//
-//import java.util.Arrays;
-//
-//import org.junit.jupiter.api.Test;
-//
-//public class TestCiphers {
-//	public static String runTest(Cipher ci, String answer, boolean useCharByChar){
-//		final String testString = "abcdefghijklmnopqrstuvwxyzABCDLMNOXYZ.$\t() {+}012389";
-//		assert(testString.length() == answer.length());
-//
-//		// Ensure that newCopy makes a deep copy
-//		//  by encrypting 'x' with the deep copy
-//		//  (but not the original)
-//		Cipher deepCopy = ci.newCopy();
-//		deepCopy.encrypt('x');
-//
-//
-//		if(useCharByChar){
-//			// Iterate through the test string, encrypting each character
-//			//   and checking against the corresponding answer character
-//			for(int i=0; i<testString.length(); i++){
-//				char res = ci.encrypt(testString.charAt(i));
-//				if(res != answer.charAt(i)){
-//					return "Encrypt failed for input character '" +
-//							testString.charAt(i) + "'.\n The result was '" + res +
-//							"'\n but it should have been '" + answer.charAt(i) + "'\n";
-//				}
-//			}
-//
-//			for(int i=0; i<answer.length(); i++){
-//				char res = ci.decrypt(answer.charAt(i));
-//				if(res != testString.charAt(i)){
-//					return "Decrypt failed for input character '" +
-//							answer.charAt(i) + "'.\n The result was '" + res +
-//							"'\n but it should have been '" + testString.charAt(i) + "'\n";
-//				}
-//			}
-//		}
-//		else{
-//			String secret = ci.encrypt(testString);
-//			if(! secret.equals(answer)){
-//				return "String encrypt failed.\n" +
-//				"Result:  " + secret + "\n" +
-//				"Correct: " + answer + "\n";
-//			}
-//
-//			String res = ci.decrypt(secret);
-//			if(! res.equals(testString)){
-//				return "String decrypt failed.\n" +
-//				"Result:  " + res + "\n" +
-//				"Correct: " + testString + "\n";
-//			}
-//		}
-//
-//		return "";
-//	}
-//
-//	@Test
-//	public void caesarOnly(){
-//		CaesarCipher cc = new CaesarCipher(17);
-//		String answer = "rstuvwxyzabcdefghijklmnopqRSTUCDEFOPQ.$\t() {+}012389";
-//		assertEquals("", runTest(cc, answer, true));
-//	}
-//
-//	@Test
-//	public void vigenereOnly(){
-//		Integer[] shifts = {5, 3, 16};
-//		VigenereCipher vc = new VigenereCipher( Arrays.asList(shifts) );
-//		String answer = "fesihvlkyonbrqeuthxwkazndcQGFTQPDTAOE.$\t() {+}012389";
-//
-//		// Check for deep copy by changing state with an "encrypt" call
-//		VigenereCipher copy = new VigenereCipher(vc);
-//		copy.encrypt('x');
-//
-//		assertEquals("", runTest(vc, answer, true));
-//	}
-//
-//
-//	@Test
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Arrays;
+
+import org.junit.jupiter.api.Test;
+
+public class TestCiphers {
+	public static String runTest(Cipher ci, String answer, boolean useCharByChar){
+		final String testString = "abcdefghijklmnopqrstuvwxyzABCDLMNOXYZ.$\t() {+}012389";
+		assert(testString.length() == answer.length());
+
+		// Ensure that newCopy makes a deep copy
+		//  by encrypting 'x' with the deep copy
+		//  (but not the original)
+		Cipher deepCopy = ci.newCopy();
+		deepCopy.encrypt('x');
+
+
+		if(useCharByChar){
+			// Iterate through the test string, encrypting each character
+			//   and checking against the corresponding answer character
+			for(int i=0; i<testString.length(); i++){
+				char res = ci.encrypt(testString.charAt(i));
+				if(res != answer.charAt(i)){
+					return "Encrypt failed for input character '" +
+							testString.charAt(i) + "'.\n The result was '" + res +
+							"'\n but it should have been '" + answer.charAt(i) + "'\n";
+				}
+			}
+
+			for(int i=0; i<answer.length(); i++){
+				char res = ci.decrypt(answer.charAt(i));
+				if(res != testString.charAt(i)){
+					return "Decrypt failed for input character '" +
+							answer.charAt(i) + "'.\n The result was '" + res +
+							"'\n but it should have been '" + testString.charAt(i) + "'\n";
+				}
+			}
+		}
+		else{
+			String secret = ci.encrypt(testString);
+			if(! secret.equals(answer)){
+				return "String encrypt failed.\n" +
+				"Result:  " + secret + "\n" +
+				"Correct: " + answer + "\n";
+			}
+
+			String res = ci.decrypt(secret);
+			if(! res.equals(testString)){
+				return "String decrypt failed.\n" +
+				"Result:  " + res + "\n" +
+				"Correct: " + testString + "\n";
+			}
+		}
+
+		return "";
+	}
+
+	@Test
+	public void caesarOnly(){
+		CaesarCipher cc = new CaesarCipher(17);
+		String answer = "rstuvwxyzabcdefghijklmnopqRSTUCDEFOPQ.$\t() {+}012389";
+		assertEquals("", runTest(cc, answer, true));
+	}
+
+	@Test
+	public void vigenereOnly(){
+		Integer[] shifts = {5, 3, 16};
+		VigenereCipher vc = new VigenereCipher( Arrays.asList(shifts) );
+		String answer = "fesihvlkyonbrqeuthxwkazndcQGFTQPDTAOE.$\t() {+}012389";
+
+		// Check for deep copy by changing state with an "encrypt" call
+		VigenereCipher copy = new VigenereCipher(vc);
+		copy.encrypt('x');
+
+		assertEquals("", runTest(vc, answer, true));
+	}
+
+
+	//@Test
 //	public void compositionWithCaesar(){
 //		CompositionCipher comp_cc = new CompositionCipher();
 //		CaesarCipher temp_cc = new CaesarCipher(18);
@@ -87,29 +87,29 @@
 //
 //		assertEquals("", runTest(comp_cc, answer, true));
 //	}
-//
-//
-//	@Test
-//	public void caesarOnly_StringMethods(){
-//		CaesarCipher cc = new CaesarCipher(17);
-//		String answer = "rstuvwxyzabcdefghijklmnopqRSTUCDEFOPQ.$\t() {+}012389";
-//		assertEquals("", runTest(cc, answer, false));
-//	}
-//
-//	@Test
-//	public void vigenereOnly_StringMethods(){
-//		Integer[] shifts = {5, 3, 16};
-//		VigenereCipher vc = new VigenereCipher( Arrays.asList(shifts) );
-//		String answer = "fesihvlkyonbrqeuthxwkazndcQGFTQPDTAOE.$\t() {+}012389";
-//
-//		// Check for deep copy by changing state with an "encrypt" call
-//		VigenereCipher copy = new VigenereCipher(vc);
-//		copy.encrypt('x');
-//
-//		assertEquals("", runTest(vc, answer, false));
-//	}
-//
-//
+
+
+	@Test
+	public void caesarOnly_StringMethods(){
+		CaesarCipher cc = new CaesarCipher(17);
+		String answer = "rstuvwxyzabcdefghijklmnopqRSTUCDEFOPQ.$\t() {+}012389";
+		assertEquals("", runTest(cc, answer, false));
+	}
+
+	@Test
+	public void vigenereOnly_StringMethods(){
+		Integer[] shifts = {5, 3, 16};
+		VigenereCipher vc = new VigenereCipher( Arrays.asList(shifts) );
+		String answer = "fesihvlkyonbrqeuthxwkazndcQGFTQPDTAOE.$\t() {+}012389";
+
+		// Check for deep copy by changing state with an "encrypt" call
+		VigenereCipher copy = new VigenereCipher(vc);
+		copy.encrypt('x');
+
+		assertEquals("", runTest(vc, answer, false));
+	}
+
+
 //	@Test
 //	public void compositionWithCaesar_StringMethods(){
 //		CompositionCipher comp_cc = new CompositionCipher();
@@ -120,8 +120,8 @@
 //
 //		assertEquals("", runTest(comp_cc, answer, false));
 //	}
-//
-//
+
+
 //	@Test
 //	public void compositionWithVigenere(){
 //		CompositionCipher comp_vc = new CompositionCipher();
@@ -138,7 +138,7 @@
 //
 //		assertEquals("", runTest(comp_vc, answer, true));
 //	}
-//
+
 //	@Test
 //	public void compWithCompWithCaesar(){
 //		CompositionCipher comp_comp_cc = new CompositionCipher();
@@ -223,6 +223,6 @@
 //
 //		assertEquals("", runTest(comp_mix, answer, true));
 //	}
-//
-//
-//}
+
+
+}

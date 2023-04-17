@@ -25,8 +25,11 @@ public abstract class Cipher {
         }
         return sb.toString();
     }
-
-    public abstract Cipher newCopy(Cipher c);//Should this be abstract???
+public abstract Cipher newCopy ();
+    public Cipher newCopy(Cipher c)//;//Should this be abstract???
+    {
+        return c.newCopy();
+    }
 
 
 }
