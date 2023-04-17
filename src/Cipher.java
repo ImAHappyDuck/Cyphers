@@ -7,25 +7,29 @@ public abstract class Cipher {
     public abstract char decrypt(char c);
 
     public String encrypt(String s) {
-        StringBuilder sb = new StringBuilder();
-        Scanner sc = new Scanner(s);
-        sc.useDelimiter("");
-        while (sc.hasNext()) {
-            sb.append(encrypt(sc.next()));
+        //StringBuilder sb = new StringBuilder();
+        String e = "";
+//        Scanner sc = new Scanner(s);
+//        sc.useDelimiter("");
+        for(int i = 0; i < s.length(); i++ ) {
+          //
+            e = e + encrypt(s.charAt(i));
         }
-        return sb.toString();
+        return e; //sb.toString();
     }
 
     public String decrypt(String s) {
         StringBuilder sb = new StringBuilder();
-        Scanner sc = new Scanner(s);
-        sc.useDelimiter("");
-        while (sc.hasNext()) {
-            sb.append(decrypt(sc.next()));
+        String e = "";
+        for(int i = 0; i < s.length(); i++ ) {
+            //
+            e = e + decrypt(s.charAt(i));
         }
-        return sb.toString();
+        return e;//sb.toString();
     }
-public abstract Cipher newCopy ();
+
+    public abstract Cipher newCopy();
+
     public Cipher newCopy(Cipher c)//;//Should this be abstract???
     {
         return c.newCopy();
